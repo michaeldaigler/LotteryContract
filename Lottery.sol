@@ -11,6 +11,7 @@ contract Lottery {
 
     receive () payable external {
 
+        require(msg.value >= 0.01 ether, "Not enough funds");
         players.push(msg.sender);
     }
 

@@ -2,7 +2,7 @@ pragma solidity ^0.8.0;
 
 
 contract Lottery {
-    address[] public players;
+    address payable [] public  players;
     address public manager;
 
     constructor()  {
@@ -12,15 +12,18 @@ contract Lottery {
     receive () payable external {
 
         require(msg.value >= 0.01 ether, "Not enough funds");
-        players.push(msg.sender);
+        players.push(payable(msg.sender));
     }
 
-    function find_winner() public view returns(address){
+    function find_winner()  public {
         require(msg.sender == manager);
         uint r = random();
-        address  winner;
+        address payable winner;
         winner = players[r % players.length];
-        return winner;
+
+        winner.transfer(address(this).balance);
+
+
 
     }
 

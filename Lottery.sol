@@ -23,7 +23,7 @@ contract Lottery {
 
         winner.transfer(address(this).balance);
 
-
+        players = new address payable [](0);
 
     }
 
